@@ -18,7 +18,7 @@ namespace SimpleAutoClicker
 
         private bool _clickerEnabled = false;
         private Clicker _clicker = new Clicker();
-        private Thread clickerThread;
+        private Thread _clickerThread;
         public Form1()
         {
             InitializeComponent();
@@ -47,13 +47,13 @@ namespace SimpleAutoClicker
         {
             if (_clickerEnabled)
             {
-                _clicker.Stop(clickerThread);
+                _clicker.Stop(_clickerThread);
                 _clickerEnabled = false;
             }
             else
             {
-                clickerThread = new Thread(new ThreadStart(_clicker.Start));
-                clickerThread?.Start();
+                _clickerThread = new Thread(new ThreadStart(_clicker.Start));
+                _clickerThread?.Start();
                 _clickerEnabled = true;
             }
             lblClickerState.Text = _clickerEnabled ? "Clicker State: Enabled" : "Clicker State: Disabled";
@@ -61,7 +61,7 @@ namespace SimpleAutoClicker
 
         private void stopClickerBtn_Click(object sender, EventArgs e)
         {
-            _clicker.Stop(clickerThread);
+            _clicker.Stop(_clickerThread);
             _clickerEnabled = false;
             lblClickerState.Text = _clickerEnabled ? "Clicker State: Enabled" : "Clicker State: Disabled";
         }
@@ -102,7 +102,7 @@ namespace SimpleAutoClicker
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _clicker.Stop(clickerThread);
+            _clicker.Stop(_clickerThread);
             _clickerEnabled = false;
             lblClickerState.Text = _clickerEnabled ? "Clicker State: Enabled" : "Clicker State: Disabled";
         }
